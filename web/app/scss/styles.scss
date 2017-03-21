@@ -1,0 +1,29 @@
+/* Imports
+----------------------------- */
+
+// Reset
+@import "reset";
+
+// Vendors
+@import "vendors/lightbox";
+@import "vendors/slick-theme";
+@import "vendors/slick";
+@import "vendors/jquery-ui.min";
+@import "vendors/select2.min";
+@import "vendors/animate.min";
+@import "vendors/gridlex-vars";
+@import "vendors/gridlex";
+
+// Base and Variables
+@import "variables";
+@import "base"; 
+
+// Partials
+@import "buttons";
+@import "checkboxes";
+
+// Pages
+@import "pages/home";
+
+// Responsive
+@import "responsive";

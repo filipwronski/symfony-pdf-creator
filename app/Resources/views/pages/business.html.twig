@@ -1,0 +1,28 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+  {{ form_start(form) }}
+  <div class="grid">
+    <div class="col-6">
+      {{ form_label(form.name) }}
+      {{ form_errors(form.name) }}
+      {{ form_widget(form.name) }}
+    </div>
+    <div class="col-6">
+      {{ form_label(form.surname) }}
+      {{ form_errors(form.surname) }}
+      {{ form_widget(form.surname) }}
+    </div>
+  </div>
+  {{ form_widget(form.save) }}
+  {{ form_end(form) }}
+  {% if fileurl %}
+    <a href="/{{fileurl}}" class="button-fill">Plik</a>
+  {% endif %}
+
+{% endblock %}
+
+{% block stylesheets %}
+
+
+{% endblock %}
