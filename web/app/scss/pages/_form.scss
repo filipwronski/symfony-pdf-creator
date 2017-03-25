@@ -1,0 +1,96 @@
+.form-page{
+  &__banner{
+    margin: 80px 0;
+    min-height: 250px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-image: url(/app/img/client-bg.png);
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    &--dark{
+      background-image: url(/app/img/client-bg-dark.png);
+    }
+    &__title{
+      font-size: 40px;
+      font-family: "Minion Pro";
+      color: rgb(255, 245, 239);
+      font-variant: small-caps;
+      line-height: 0.95;
+      text-align: center; 
+      span{
+        font-size: 24px;
+      }
+    }
+  }
+  h1{ 
+
+  }
+  h2{
+    font-size: 26px;
+    font-family: "Minion Pro";
+    color: rgb(27, 38, 60);
+    font-variant: small-caps;
+    line-height: 2.231;
+    text-align: left;
+  }
+  h3{ 
+    font-size: 16px;
+    font-family: "Minion Pro";
+    color: rgb(27, 38, 60);
+    text-transform: uppercase;
+    line-height: 2.25;
+    text-align: left;
+  }
+  label{
+    font-size: 13px;
+    font-family: "Minion Pro";
+    color: rgb(27, 38, 60);
+    text-transform: uppercase;
+    line-height: 2.769;
+    text-align: left;
+    display: block;
+  }
+  input[type=text] {
+    border-width: 1px;
+    border-color: rgb(215, 142, 104);
+    border-style: solid;
+    border-radius: 4px;
+    max-width: 400px;
+    box-shadow: none;
+  }
+  input[type=radio] {
+    box-shadow: none;
+    display: inline-block;
+    width: auto;
+  }
+  input[type=checkbox] {
+    box-shadow: none;
+    display: inline-block;
+    width: auto;
+  }
+  .header-label{
+    label{
+      font-size: 16px;
+      font-weight: bold;
+    }
+  }
+  .navigation{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 100px;
+    &--left{
+      display: inline-block;
+    }
+    &--right{
+      display: inline-block;
+    }
+  }
+} 
+.form-page{
+  .error{
+    color: #b90000; 
+  }
+}
+

@@ -31,7 +31,8 @@
         "twig/twig": "^1.0||^2.0",
         "symfony/form": "^3.2",
         "symfony/twig-bridge": "^3.2",
-        "dompdf/dompdf": "^0.8.0"
+        "dompdf/dompdf": "^0.8.0",
+        "vich/uploader-bundle": "^1.4"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

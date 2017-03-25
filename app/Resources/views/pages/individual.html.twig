@@ -1,7 +1,287 @@
+
 {% extends 'base.html.twig' %}
 
 {% block body %}
-  
+  <div class="page-wrapper">
+    <header class="header">
+      <figure class="logo">
+        <a href="/" title="Home"><img src="{{ asset('app/img/logo.png') }}" alt="Murapol Logo"></a>
+      </figure>
+      <ul class="menu">
+        <li>Inwestor</li>
+        <li class="active">Formularz</li> 
+        <li>Zgody</li>
+        <li>Potwierdzenie</li>
+      </ul>
+    </header>
+    <div class="form-page">
+      <div class="form-page__banner">
+        <h1 class="form-page__banner__title"> 
+          Dane Klienta Indywidualnego<br><span>(osoba fizyczna)</span>
+        </h1>
+      </div>
+      {{ form_start(form_individual, {'attr': {'novalidate': 'novalidate','id': 'form-individual'}}) }}
+      <div class="grid">
+        <div class="col-12">
+          <h2>Wypełnij poprawnie formularz Murapol HRE FIZ AN</h2>
+        </div>
+        <div class="col-4_sm-12">
+          {{ form_label(form_individual.name) }}
+          {{ form_errors(form_individual.name) }}
+          {{ form_widget(form_individual.name) }}
+        </div>
+        <div class="col-4_sm-12">
+          {{ form_label(form_individual.phone) }}
+          {{ form_errors(form_individual.phone) }}
+          {{ form_widget(form_individual.phone) }}
+        </div> 
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.mail) }}
+          {{ form_errors(form_individual.mail) }}
+          {{ form_widget(form_individual.mail) }}
+        </div>
+
+        <div class="col-12">
+          <h3>Adres zamieszkania</h3>
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.street) }}
+          {{ form_errors(form_individual.street) }}
+          {{ form_widget(form_individual.street) }} 
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.street_number) }}
+          {{ form_errors(form_individual.street_number) }}
+          {{ form_widget(form_individual.street_number) }}
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.flat_number) }}
+          {{ form_errors(form_individual.flat_number) }}
+          {{ form_widget(form_individual.flat_number) }}
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.post_code) }}
+          {{ form_errors(form_individual.post_code) }}
+          {{ form_widget(form_individual.post_code) }}
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.city) }}
+          {{ form_errors(form_individual.city) }}
+          {{ form_widget(form_individual.city) }}
+        </div>
+        <div class="col-4_sm-12">
+          {{ form_label(form_individual.other_cor) }}
+          {{ form_errors(form_individual.other_cor) }}
+          {{ form_widget(form_individual.other_cor) }} 
+        </div> 
+        <div class="col-12"><br></div>
+        <div class="col-12 coresponding-address">
+          <div class="grid">
+            <div class="col-12">
+              <h3>Adres korespondencyjny</h3> 
+            </div>
+            <div class="col-4_sm-12"> 
+              {{ form_label(form_individual.cor_street) }}
+              {{ form_errors(form_individual.cor_street) }}
+              {{ form_widget(form_individual.cor_street) }}
+            </div>
+            <div class="col-4_sm-12"> 
+              {{ form_label(form_individual.cor_street_number) }}
+              {{ form_errors(form_individual.cor_street_number) }}
+              {{ form_widget(form_individual.cor_street_number) }}
+            </div>
+            <div class="col-4_sm-12"> 
+              {{ form_label(form_individual.cor_flat_number) }}
+              {{ form_errors(form_individual.cor_flat_number) }}
+              {{ form_widget(form_individual.cor_flat_number) }}
+            </div>
+            <div class="col-4_sm-12"> 
+              {{ form_label(form_individual.cor_post_code) }}
+              {{ form_errors(form_individual.cor_post_code) }}
+              {{ form_widget(form_individual.cor_post_code) }}
+            </div>
+            <div class="col-4_sm-12"> 
+              {{ form_label(form_individual.cor_city) }}
+              {{ form_errors(form_individual.cor_city) }}
+              {{ form_widget(form_individual.cor_city) }}
+            </div>
+          </div>
+        </div>
+        <div class="col-12"><br></div>
+
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.id_number) }}
+          {{ form_errors(form_individual.id_number) }}
+          {{ form_widget(form_individual.id_number) }}
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.id_expiration) }}
+          {{ form_errors(form_individual.id_expiration) }}
+          {{ form_widget(form_individual.id_expiration) }}
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.nationality) }}
+          {{ form_errors(form_individual.nationality) }}
+          {{ form_widget(form_individual.nationality) }}
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.pesel) }}
+          {{ form_errors(form_individual.pesel) }}
+          {{ form_widget(form_individual.pesel) }}
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.birth_date) }}
+          {{ form_errors(form_individual.birth_date) }}
+          {{ form_widget(form_individual.birth_date) }}
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.birth_country) }}
+          {{ form_errors(form_individual.birth_country) }}
+          {{ form_widget(form_individual.birth_country) }}
+        </div> 
+        <div class="col-12"><br></div>
+        <div class="col-12">
+          <div class="header-label">{{ form_label(form_individual.legal_status) }}</div>
+          <div class="grid">
+            {% for input in form_individual.legal_status %}
+              <div class="col-4_sm-12"> 
+                {{ form_row(input) }}
+              </div>
+            {% endfor %}
+          </div>
+        </div> 
+        <br>
+        <div class="col-12">
+          <div class="header-label">{{ form_label(form_individual.currency_status) }}</div>
+          <div class="grid">
+            {% for input in form_individual.currency_status %}
+              <div class="col-4_sm-12"> 
+                {{ form_row(input) }}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <br>
+        <div class="col-12">
+          <div class="header-label">{{ form_label(form_individual.facta_status) }}</div>
+          <div class="grid">
+            {% for input in form_individual.facta_status %}
+              <div class="col-4_sm-12"> 
+                {{ form_row(input) }}
+              </div>
+            {% endfor %}
+          </div>
+        </div>
+        <div class="col-12">
+          <div class="grid">
+            <div id="tin-number" class="col-4_sm-12"> 
+              {{ form_label(form_individual.tin_number) }}
+              {{ form_errors(form_individual.tin_number) }}
+              {{ form_widget(form_individual.tin_number) }}
+            </div>
+            <div id="currency_country" class="col-4_sm-12"> 
+              {{ form_label(form_individual.currency_country) }}
+              {{ form_errors(form_individual.currency_country) }}
+              {{ form_widget(form_individual.currency_country) }} 
+            </div> 
+            <div class="col-4_sm-12"> 
+              {{ form_label(form_individual.bank_name) }}
+              {{ form_errors(form_individual.bank_name) }} 
+              {{ form_widget(form_individual.bank_name) }}
+            </div>
+            <div class="col-4_sm-12"> 
+              {{ form_label(form_individual.account_number) }}
+              {{ form_errors(form_individual.account_number) }}
+              {{ form_widget(form_individual.account_number) }}
+            </div>
+            
+          </div>
+        </div> 
+        <div class="col-12">
+          <div class="grid">
+            <div class="col-4_sm-12"> 
+              {{ form_label(form_individual.amount) }}
+              {{ form_errors(form_individual.amount) }} 
+              {{ form_widget(form_individual.amount) }}
+            </div>
+            <div class="col-4_sm-12"> 
+              {{ form_label(form_individual.charge) }}
+              {{ form_errors(form_individual.charge) }}
+              {{ form_widget(form_individual.charge) }}
+            </div>
+          </div>
+        </div> 
+        <div class="col-12">
+          <h2>Dane doradcy</h2>
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.counselor_name) }}
+          {{ form_errors(form_individual.counselor_name) }}
+          {{ form_widget(form_individual.counselor_name) }}
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.counselor_phone) }}
+          {{ form_errors(form_individual.counselor_phone) }}
+          {{ form_widget(form_individual.counselor_phone) }}
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.counselor_email) }}
+          {{ form_errors(form_individual.counselor_email) }}
+          {{ form_widget(form_individual.counselor_email) }}
+        </div>
+        <div class="col-8_sm-12"> 
+          {{ form_label(form_individual.counselor_company) }}
+          {{ form_errors(form_individual.counselor_company) }}
+          {{ form_widget(form_individual.counselor_company) }}
+        </div>
+        <div class="col-12">
+          <h3>Adres placówki firmy</h3>
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.counselor_street) }}
+          {{ form_errors(form_individual.counselor_street) }}
+          {{ form_widget(form_individual.counselor_street) }}
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.counselor_street_number) }}
+          {{ form_errors(form_individual.counselor_street_number) }}
+          {{ form_widget(form_individual.counselor_street_number) }}
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.counselor_flat_number) }}
+          {{ form_errors(form_individual.counselor_flat_number) }}
+          {{ form_widget(form_individual.counselor_flat_number) }}
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.counselor_post_code) }}
+          {{ form_errors(form_individual.counselor_post_code) }}
+          {{ form_widget(form_individual.counselor_post_code) }}
+        </div>
+        <div class="col-4_sm-12"> 
+          {{ form_label(form_individual.counselor_city) }}
+          {{ form_errors(form_individual.counselor_city) }}
+          {{ form_widget(form_individual.counselor_city) }}
+        </div> 
+        <div class="col-12">
+          <div class="navigation">
+            <div class="navigation--right">
+              <a class="btn-fill btn-fill--back" href="/">Wstecz</a>
+            </div>
+            <div class="navigation--left">
+              {{ form_widget(form_individual.save) }}
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div> 
+    <footer class="footer">
+      <p class="footer__terms">© 2017 Murapol HRE FIZ AN</p> 
+      <a href="mailto: zgloszenie@murapolhre.pl" class="footer__mail">zgloszenie@murapolhre.pl</a> 
+    </footer>
+
+  </div>
+  {{ form_widget(form_individual.save) }}
+  {{ form_end(form_individual) }}
 {% endblock %}
 
 {% block stylesheets %}

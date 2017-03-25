@@ -1,7 +1,68 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-  
+  <div class="page-wrapper">
+    <header class="header">
+      <figure class="logo">
+        <a href="/" title="Home"><img src="{{ asset('app/img/logo.png') }}" alt="Murapol Logo"></a>
+      </figure>
+      <ul class="menu">
+        <li>Inwestor</li>
+        <li>Formularz</li> 
+        <li class="active">Zgody</li>
+        <li>Potwierdzenie</li>
+      </ul>
+    </header>
+    <div class="form-page">
+      <div class="form-page__banner">
+        <h1 class="form-page__banner__title"> 
+          Dane Klienta Indywidualnego<br><span>(osoba fizyczna)</span>
+        </h1>
+      </div>
+      {% for flashMessage in app.session.flashbag.get('success') %}
+        <div class="print-wrapper">
+        <a href="{{ flashMessage }}" class="btn-fill">Pobierz pliki do druku</a> 
+        </div>
+      {% endfor %}
+      <ol class="steps">
+      <li>Sprawdź poprawność danych klienta na formularzach zgody saturn TFIS oraz Murapol HRE.</li>
+      <li>Popraw dane jeżeli formularze zawierają błędy.</li>
+      <li>Wydrukuj prawidłowo wypełnione formularze zgody i przekaż klientowi do podpisu.</li>
+      <li>Zrób skan podpisanych formularzy zgód oraz dodaj do systemu.</li>
+      </ol>
+      
+      {{ form_start(form_individual_files, {'attr': {'novalidate': 'novalidate','id': 'form-individual-files'}}) }}
+          {{ form_label(form_individual_files.pdf_file_murapol) }}
+          {{ form_errors(form_individual_files.pdf_file_murapol) }}
+          {{ form_widget(form_individual_files.pdf_file_murapol) }}
+          
+          {{ form_label(form_individual_files.pdf_file_saturn) }}
+          {{ form_errors(form_individual_files.pdf_file_saturn) }}
+          {{ form_widget(form_individual_files.pdf_file_saturn) }}
+          
+ 
+
+          {{ form_widget(form_individual_files.save) }}
+        {{ form_end(form_individual_files) }}
+      {#<pre>{{ dump(form_data) }}</pre>  #}
+      <div class="grid">
+        <div class="col-12">
+          <div class="navigation">
+            <div class="navigation--right">
+              <a class="btn-fill btn-fill--back" href="{{ path('individual') }}">Wstecz</a>
+            </div>
+            <div class="navigation--left">
+              <a class="btn-fill btn-fill--next" href="/">Dalej</a>
+            </div>
+          </div> 
+        </div>
+      </div>
+    </div>
+    <footer class="footer">
+      <p class="footer__terms">© 2017 Murapol HRE FIZ AN</p> 
+      <a href="mailto: zgloszenie@murapolhre.pl" class="footer__mail">zgloszenie@murapolhre.pl</a> 
+    </footer>
+  </div>
 {% endblock %}
 
 {% block stylesheets %}

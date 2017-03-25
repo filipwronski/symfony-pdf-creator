@@ -1,19 +1,43 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-<section class="grid">
-  <div class="col-12">
-    <h1 class="title">
-      Tytuł
-    </h1>
+  <div class="page-wrapper">
+    <header class="header">
+      <figure class="logo">
+        <a href="/" title="Home"><img src="{{ asset('app/img/logo.png') }}" alt="Murapol Logo"></a>
+      </figure>
+      <ul class="menu">
+        <li class="active">Inwestor</li>
+        <li>Formularz</li>
+        <li>Zgody</li>
+        <li>Potwierdzenie</li>
+      </ul>
+    </header>
+    <section class="content">
+      <h1 class="page-title">
+        Zamówienie Imiennej Propozycji Nabycia Certyfikatów<br>Murapol HRE FIZ AN
+      </h1>
+      <div class="grid-noGutter"> 
+        <div class="col-6_sm-12">
+          <a href="{{ path('individual') }}" class="tile tile--left">
+            <h2 class="tile__title">Klient indywidualny<br><span>(osoba fizyczna)</span></h2>
+            <button class="tile__button">Wybierz</button>
+          </a>  
+        </div>
+        <div class="col-6_sm-12">
+          <a  href="{{ path('institutional') }}" class="tile tile--right">
+            <h2 class="tile__title">Klient instytucjonalny<br><span>(osoba prawna)</span></h2>
+            <button class="tile__button">Wybierz</button> 
+          </a>
+        </div>  
+      </div>
+    </section> 
+    <footer class="footer">
+      <p class="footer__terms">© 2017 Murapol HRE FIZ AN</p> 
+      <a href="mailto: zgloszenie@murapolhre.pl" class="footer__mail">zgloszenie@murapolhre.pl</a> 
+    </footer>
+
   </div>
-  <div class="col-6">
-    <a href="{{ path('individual') }}" class="client-button client-button--individual">Klient Indywidualny</a>
-  </div>
-  <div class="col-6">
-    <a  href="{{ path('business') }}" class="client-button client-button--business">Klient Biznesowy</a>
-  </div>
-</section>
 {% endblock %}
 
 {% block stylesheets %}

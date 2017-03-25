@@ -1,0 +1,22 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+<section class="grid">
+  <div class="col-12">
+    <h1 class="title">
+      Tytuł
+    </h1>
+  </div>
+  <div class="col-6">
+    <a href="{{ path('individual') }}" class="client-button client-button--individual">Klient Indywidualny</a>
+  </div>
+  <div class="col-6">
+    <a  href="{{ path('business') }}" class="client-button client-button--business">Klient Biznesowy</a>
+  </div>
+</section>
+{% endblock %}
+
+{% block stylesheets %}
+
+
+{% endblock %}
