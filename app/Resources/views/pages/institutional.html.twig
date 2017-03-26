@@ -16,7 +16,7 @@
     <div class="form-page"> 
       <div class="form-page__banner form-page__banner--dark">
         <h1 class="form-page__banner__title"> 
-          Dane Klienta Indywidualnego<br><span>(osoba fizyczna)</span>
+          Dane Klienta Instytucjonalnego<br><span>(osoba prawna)</span>
         </h1>
       </div>
       {{ form_start(form_institutional, {'attr': {'novalidate': 'novalidate','id': 'form-institutional'}}) }}  
@@ -121,7 +121,10 @@
           <div class="grid">
             {% for input in form_institutional.company_country_check %}
               <div class="col-4_sm-12"> 
-                {{ form_row(input) }} 
+                <div class="radio-wrapper">
+                  {{ form_widget(input) }}
+                  {{ form_label(input) }}
+                </div>
               </div>
             {% endfor %}
           </div>
@@ -145,7 +148,10 @@
           <div class="grid">
             {% for input in form_institutional.legal_status %} 
               <div class="col-4_sm-12"> 
-                {{ form_row(input) }} 
+                <div class="radio-wrapper">
+                  {{ form_widget(input) }}
+                  {{ form_label(input) }}
+                </div>
               </div>
             {% endfor %}
           </div>
@@ -160,7 +166,10 @@
           <div class="grid">
             {% for input in form_institutional.currency_status %} 
               <div class="col-4_sm-12">  
-                {{ form_row(input) }} 
+                <div class="radio-wrapper">
+                  {{ form_widget(input) }}
+                  {{ form_label(input) }}
+                </div> 
               </div>
             {% endfor %}
           </div>

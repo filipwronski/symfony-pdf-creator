@@ -54,9 +54,9 @@ class IndividualController extends Controller {
             //CHECKBOXY
             ->add('legal_status', ChoiceType::class, array(
                 'choices' => array(
-                    'osoba fizyczna' => 1,
-                    'osoba fizyczna prowadząca działalność gospodarczą' => 2,
-                    'osoba fizyczna wykonująca wolny zawód' => 3,
+                    'osoba fizyczna' => 'osoba fizyczna',
+                    'osoba fizyczna prowadząca działalność gospodarczą' => 'osoba fizyczna prowadząca działalność gospodarczą',
+                    'osoba fizyczna wykonująca wolny zawód' => 'osoba fizyczna wykonująca wolny zawód',
                 ),
                 'label' => 'Status prawny',
                 'multiple' => false,
@@ -65,8 +65,8 @@ class IndividualController extends Controller {
             ))
             ->add('currency_status', ChoiceType::class, array(
                 'choices' => array(
-                    'rezydent (Polska)' => 1,
-                    'nierezydent' => 2,
+                    'rezydent (Polska)' => 'rezydent (Polska)',
+                    'nierezydent' => 'nierezydent',
                 ),
                 'label' => 'Status dewizowy',
                 'multiple' => false,
@@ -75,8 +75,8 @@ class IndividualController extends Controller {
             ))
             ->add('facta_status', ChoiceType::class, array(
                 'choices' => array(
-                    'NIE jest podatnikiem USA (brak rezydencji USA)' => 1,
-                    'JEST podatnikiem USA' => 2,
+                    'Nie jest podatnikiem USA (brak rezydencji USA)' => 'Nie jest podatnikiem USA (brak rezydencji USA)',
+                    'Jest podatnikiem USA' => 'Jest podatnikiem USA',
                 ),
                 'label' => 'Status FACTA',
                 'multiple' => false,
@@ -142,17 +142,17 @@ class IndividualController extends Controller {
               $this->getParameter('individual_terms_directory'), $fileNameMurapol
       );
       $termsfile->setPdfNameMurapol($fileNameMurapol);
-      
+
       $fileSaturn = $termsfile->getPdfFileSaturn();
       $fileNameSaturn = md5(uniqid()) . '.' . $fileSaturn->guessExtension();
       $fileSaturn->move(
               $this->getParameter('individual_terms_directory'), $fileNameSaturn
       );
       $termsfile->setPdfNameSaturn($fileNameSaturn);
-      
-      $uploadedFiles = ['fileMurapol' => $fileNameMurapol, 'fileSaturn' => $fileNameSaturn];
+
+      $uploadedFiles = ['fileMurapol' => $_SERVER['HTTP_HOST'] .'/uploads/terms/individual/'. $fileNameMurapol, 'fileSaturn' => $_SERVER['HTTP_HOST'] .'/uploads/terms/individual/'. $fileNameSaturn];
       $session->set('individual-uploaded-files', serialize($uploadedFiles));
-      
+
       $em = $this->getDoctrine()->getManager();
       $em->persist($termsfile);
       $em->flush();
@@ -172,12 +172,30 @@ class IndividualController extends Controller {
     $session = new Session();
     $formData = unserialize($session->get('individual-client'));
     $filesData = unserialize($session->get('individual-uploaded-files'));
-    
-    $session->getFlashBag()->add('success', 'Formularz wysłany');
+
+    $message = \Swift_Message::newInstance()
+            ->setSubject($formData['name'] . ' - klient indwyidualny')
+            ->setFrom('ogorpoznan@gmail.com')
+            ->setTo('filip0822@gmail.com')
+            ->setBody(
+                    $this->renderView(
+                            // app/Resources/views/Emails/individual.html.twig
+                            'Emails/individual.html.twig', [
+                        'form_data' => $formData,
+                        'files_data' => $filesData
+                            ]
+                    ), 'text/html'
+            )
+//            ->attach(\Swift_Attachment::fromPath($this->getParameter('individual_terms_directory') . '/' . $filesData['fileMurapol']))
+//            ->attach(\Swift_Attachment::fromPath($this->getParameter('individual_terms_directory') . '/' . $filesData['fileSaturn']))
+            ;
+    $this->get('mailer')->send($message);
+
+
 
     return $this->render('pages/individual-thanks.html.twig', [
-        'form_data'  => $formData,
-        'files_data' => $filesData
+                'form_data' => $formData,
+                'files_data' => $filesData
     ]);
   }
 

@@ -49,8 +49,8 @@ class InstitutionalController extends Controller {
             ->add('krs', TextType::class, ['label' => 'Numer KRS', 'attr' => ['placeholder' => 'Wpisz numer KRS']])
             ->add('company_country_check', ChoiceType::class, array(
                 'choices' => array(
-                    'Polska' => 1,
-                    'Inny' => 2,
+                    'Polska' => "Polska",
+                    'Inny' => "Inny",
                 ),
                 'label' => 'Kraj założenia',
                 'multiple' => false,
@@ -61,24 +61,24 @@ class InstitutionalController extends Controller {
             ->add('company_number', TextType::class, ['label' => 'Numer i nazwa rejestru', 'attr' => ['placeholder' => 'Wpisz numer i nazwę rejestru']])
             ->add('legal_status', ChoiceType::class, array(
                 'choices' => array(
-                    "spółka cywilna" => 1,
-                    "spółka jawna" => 2,
-                    "spółka partnerska" => 3,
-                    "spółka komandytowa" => 4,
-                    "spółka komandytowo-akcyjna" => 5,
-                    "spółka z o.o." => 6,
-                    "spółka z o.o. w organizacji" => 7,
-                    "spółka akcyjna" => 8,
-                    "S.A. w organizacji" => 9,
-                    "spółdzielnia" => 10,
-                    "przedsiębiorstwo państwowe" => 11,
-                    "towarzystwo ubezpieczeń wzajemnych" => 12,
-                    "stowarzyszenie" => 13,
-                    "fundacja" => 14,
-                    "organizacja społeczna i zawodowa" => 15,
-                    "przedsiębiorstwo zagraniczne" => 16,
-                    "oddział lub przedstawicielstwo przedsiębiorcy zagranicznego działającego na terytorium Polski" => 17,
-                    "inne" => 18,
+                    "spółka cywilna" => "spółka cywilna",
+                    "spółka jawna" => "spółka jawna",
+                    "spółka partnerska" => "spółka partnerska",
+                    "spółka komandytowa" => "spółka komandytowa",
+                    "spółka komandytowo-akcyjna" => "spółka komandytowo-akcyjna",
+                    "spółka z o.o." => "spółka z o.o.",
+                    "spółka z o.o. w organizacji" => "spółka z o.o. w organizacji",
+                    "spółka akcyjna" => "spółka akcyjna",
+                    "S.A. w organizacji" => "S.A. w organizacji",
+                    "spółdzielnia" => "spółdzielnia",
+                    "przedsiębiorstwo państwowe" => "przedsiębiorstwo państwowe",
+                    "towarzystwo ubezpieczeń wzajemnych" => "towarzystwo ubezpieczeń wzajemnych",
+                    "stowarzyszenie" => "stowarzyszenie",
+                    "fundacja" => "fundacja",
+                    "organizacja społeczna i zawodowa" => "organizacja społeczna i zawodowa",
+                    "przedsiębiorstwo zagraniczne" => "przedsiębiorstwo zagraniczne",
+                    "oddział lub przedstawicielstwo przedsiębiorcy zagranicznego działającego na terytorium Polski" => "oddział lub przedstawicielstwo przedsiębiorcy zagranicznego działającego na terytorium Polski",
+                    "inne" => "inne",
                 ),
                 'label' => 'Status prawny',
                 'multiple' => false,
@@ -88,8 +88,8 @@ class InstitutionalController extends Controller {
             ->add('legal_status_name', TextType::class, ['label' => 'Status prawny nazwa', 'attr' => ['placeholder' => 'Wpisz status prawny']])
             ->add('currency_status', ChoiceType::class, array(
                 'choices' => array(
-                    'rezydent (Polska)' => 1,
-                    'nierezydent' => 2,
+                    'rezydent (Polska)' => 'rezydent (Polska)',
+                    'nierezydent' => 'nierezydent',
                 ),
                 'label' => 'Status dewizowy',
                 'multiple' => false,
@@ -169,7 +169,7 @@ class InstitutionalController extends Controller {
       );
       $termsfile->setPdfNameSaturn($fileNameSaturn);
 
-      $uploadedFiles = ['fileMurapol' => $fileNameMurapol, 'fileSaturn' => $fileNameSaturn];
+      $uploadedFiles = ['fileMurapol' => $_SERVER['HTTP_HOST'] .'/uploads/terms/institutional/'. $fileNameMurapol, 'fileSaturn' => $_SERVER['HTTP_HOST'] .'/uploads/terms/institutional/'. $fileNameSaturn];
       $session->set('institutional-uploaded-files', serialize($uploadedFiles));
 
       $em = $this->getDoctrine()->getManager();
@@ -182,6 +182,39 @@ class InstitutionalController extends Controller {
                   'form_institutional_files' => $formInstitutionalFiles->createView(),
       ]);
     }
+  }
+  
+  /**
+   * @Route("/institutional/thanks", name="institutional-thanks")
+   */
+  public function institutionalThanksAction(Request $request) {
+    $session = new Session();
+    $formData = unserialize($session->get('institutional-client'));
+    $filesData = unserialize($session->get('institutional-uploaded-files'));
+    
+    $session->getFlashBag()->add('success', 'Formularz wysłany');
+    
+    $message = \Swift_Message::newInstance()
+        ->setSubject($formData['company_name'].' - klient instytucjonalny')
+        ->setFrom('ogorpoznan@gmail.com') 
+        ->setTo('filip0822@gmail.com')
+        ->setBody(
+            $this->renderView(
+                // app/Resources/views/Emails/institutional.html.twig
+                'Emails/institutional.html.twig',
+                [
+                  'form_data'  => $formData,
+                  'files_data' => $filesData
+                ]
+            ),
+            'text/html'
+        );
+    $this->get('mailer')->send($message);
+    
+    return $this->render('pages/institutional-thanks.html.twig', [
+        'form_data'  => $formData,
+        'files_data' => $filesData
+    ]);
   }
 
   public function createPdf($data) {

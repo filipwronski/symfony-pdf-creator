@@ -9,17 +9,31 @@
       <ul class="menu">
         <li>Inwestor</li>
         <li>Formularz</li> 
-        <li class="active">Zgody</li>
-        <li>Potwierdzenie</li>
+        <li>Zgody</li>
+        <li class="active">Potwierdzenie</li>
       </ul>
     </header>
-    <div class="form-page">
-      <div class="form-page__banner">
-        <h1 class="form-page__banner__title"> 
-          Dane Klienta Indywidualnego<br><span>(osoba fizyczna)</span>
-        </h1>
+    <div class="thanks">
+      <h1 class="thanks__title">Dziękujemy za zamówieni<br> imiennej propozycji nabycia certyfikatów murapol HRE FIZ AN.</h1>
+
+      <h2 class="thanks__subtitle">Na podany w formularzu adres e-mail klienta zostaną przesłane następujące dokumenty:</h2>
+      <div class="thanks__wrapper">
+          <ol class="thanks__list">
+            <li>Imienna propozycja nabycia certyfikatów</li>
+            <li>Formularz zapisu na certyfikaty inwestycyjne</li>
+            <li>Warunki emisji certyfikatów</li>
+          </ol>
+          <ol class="thanks__list">
+            <li>Statut funduszu</li>
+            <li>Prezentacja funduszu</li>
+            <li>Karta funduszu</li>
+          </ol>
       </div>
-      <pre>{{ dump(form_data) }}</pre>
+      <div class="thanks__footer">
+        <p>Kontakt z koordynatorem:</p>
+        <a href="mailto:zgloszenia@murapolhre.pl">zgloszenia@murapolhre.pl</a>
+      </div>
+     {# <pre>{{ dump(form_data) }}</pre>
       <style> table{width: 100%; margin: 20px 0;} td, th{border: 1px solid black; padding: 10px} th{font-weight: bold; text-align: left}</style>
       <table>
         <tr>
@@ -83,8 +97,11 @@
         <tr>
           <th>Status prawny</th>
           <th>Status dewizowy</th>
-          <th>Status FACTA</th> 
+          {% if form_data.currency_status == "nierezydent" %}
+          <td>Kraj rezydencji podatkowej</td>
           <th>Numer TIN</th>
+          {% endif %}
+          <th>Status FACTA</th> 
           <th>Nazwa banku</th>
           <th>Numer konta</th>
           <th>Kwota</th>
@@ -93,8 +110,11 @@
         <tr>
           <td>{{form_data.legal_status}}</td>
           <td>{{form_data.currency_status}}</td>
-          <td>{{form_data.facta_status}}</td>
+          {% if form_data.currency_status == "nierezydent" %}
+          <td>{{form_data.currency_country}}</td>
           <td>{{form_data.tin_number}}</td>
+          {% endif %}
+          <td>{{form_data.facta_status}}</td>
           <td>{{form_data.bank_name}}</td>
           <td>{{form_data.account_number}}</td>
           <td>{{form_data.amount}}</td>
@@ -128,20 +148,9 @@
         
       <br>
       <br>
-      <pre>{{ dump(files_data) }}</pre>
-      <div class="grid">
-        <div class="col-12">
-          <div class="navigation">
-            <div class="navigation--right">
-              <a class="btn-fill btn-fill--back" href="{{ path('individual-terms') }}">Wstecz</a>
-            </div>
-            <div class="navigation--left">
-              <a class="btn-fill btn-fill--next" href="/">Dalej</a>
-            </div>
-          </div> 
-        </div>
-      </div>
+      <pre>{{ dump(files_data) }}</pre> #}
     </div>
+    
     <footer class="footer">
       <p class="footer__terms">© 2017 Murapol HRE FIZ AN</p> 
       <a href="mailto: zgloszenie@murapolhre.pl" class="footer__mail">zgloszenie@murapolhre.pl</a> 

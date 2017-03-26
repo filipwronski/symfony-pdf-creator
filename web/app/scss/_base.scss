@@ -243,7 +243,9 @@ input:focus::-webkit-input-placeholder {
 .footer{
   display: flex;
   justify-content: space-between;
-  margin: 40px 0;
+  padding: 40px 0;
+  margin-top: 80px;
+  border-top: 1px solid;
   &__terms{
     font-size: 16px;
     font-family: "Minion Pro";

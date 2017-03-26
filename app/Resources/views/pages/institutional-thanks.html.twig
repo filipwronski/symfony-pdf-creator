@@ -9,24 +9,39 @@
       <ul class="menu">
         <li>Inwestor</li>
         <li>Formularz</li> 
-        <li class="active">Zgody</li>
-        <li>Potwierdzenie</li>
+        <li>Zgody</li>
+        <li class="active">Potwierdzenie</li>
       </ul>
     </header>
-    <div class="form-page">
-      <div class="form-page__banner">
-        <h1 class="form-page__banner__title"> 
-          Dane Klienta Indywidualnego<br><span>(osoba fizyczna)</span>
-        </h1>
+    <div class="thanks">
+      <h1 class="thanks__title">Dziękujemy za zamówieni<br> imiennej propozycji nabycia certyfikatów murapol HRE FIZ AN.</h1>
+
+      <h2 class="thanks__subtitle">Na podany w formularzu adres e-mail klienta zostaną przesłane następujące dokumenty:</h2>
+      <div class="thanks__wrapper">
+          <ol class="thanks__list">
+            <li>Imienna propozycja nabycia certyfikatów</li>
+            <li>Formularz zapisu na certyfikaty inwestycyjne</li>
+            <li>Warunki emisji certyfikatów</li>
+          </ol>
+          <ol class="thanks__list">
+            <li>Statut funduszu</li>
+            <li>Prezentacja funduszu</li>
+            <li>Karta funduszu</li>
+          </ol>
       </div>
+      <div class="thanks__footer">
+        <p>Kontakt z koordynatorem:</p>
+        <a href="mailto:zgloszenia@murapolhre.pl">zgloszenia@murapolhre.pl</a>
+      </div>
+{#     
       <pre>{{ dump(form_data) }}</pre>
       <style> table{width: 100%; margin: 20px 0;} td, th{border: 1px solid black; padding: 10px} th{font-weight: bold; text-align: left}</style>
       <table>
         <tr>
-          <th colspan="6">Dane klienta:</th>
+          <th colspan="6">Dane firmy:</th>
         </tr>
         <tr>
-          <th>Imię i nazwisko</th>
+          <th>Nazwa firmy</th>
           <th>Numer telefonu</th>
           <th>E-mail</th>
           <th>Ulica</th>
@@ -34,7 +49,7 @@
           <th>Miejscowość</th>
         </tr>
         <tr>
-          <td>{{form_data.name}}</td>
+          <td>{{form_data.company_name}}</td>
           <td>{{form_data.phone}}</td>
           <td>{{form_data.mail}}</td>
           <td>{{form_data.street}} {{form_data.street_number}}{% if form_data.flat_number != null %}/{{form_data.flat_number}}{% endif %}</td>
@@ -61,48 +76,83 @@
       {% endif %}
       <table>
         <tr>
-          <th>Numer dowodu osobistego</th>
-          <th>Ważność dowodu osobistego</th>
-          <th>Narodowość</th>
-          <th>PESEL</th>
-          <th>Data urodzenia</th>
-          <th>Kraj urodzenia</th>
-                  
+          <th colspan="6">Dane szczegółowe:</th>
         </tr>
         <tr>
-          <td>{{form_data.id_number}}</td>
-          <td>{{form_data.id_expiration}}</td>
-          <td>{{form_data.nationality}}</td>
-          <td>{{form_data.pesel}}</td>
-          <td>{{form_data.birth_date}}</td>
-          <td>{{form_data.birth_country}}</td>
+          <th>NIP</th>
+          <th>KRS</th>
+          <th>Kraj założenia</th>
+            {% if form_data.company_country_check == "Inny" %}
+            <th>Numer i nazwa rejestru</th>
+            {% endif %}
+          <th>Status prawny</th>
+          <th>Status ewidencji podatkowej</th>
+            {% if form_data.currency_status == "nierezydent" %}
+            <th>Kraj rezydencji podatkowej</th>
+            {% endif %}
+        </tr>
+        <tr>
+          <td>{{form_data.nip}}</td>
+          <td>{{form_data.krs}}</td>
+          {% if form_data.company_country_check == "Polska"%}
+            <td>Polska</td>
+          {% else %}
+            <td>{{form_data.company_country}}</td>
+            <td>{{form_data.company_number}}</td>
+          {% endif %}  
+          {% if form_data.legal_status == "inne" %}
+            <td>{{form_data.legal_status_name}}</td>
+          {% else %}
+            <td>{{form_data.legal_status}}</td>
+          {% endif %}
+          {% if form_data.currency_status != "nierezydent" %}
+            <td>{{form_data.currency_status}}</td>
+          {% else %}
+            <td>{{form_data.currency_status}}</td>
+            <td>{{form_data.currency_country}}</td>
+          {% endif %}
         </tr>
       </table>
-
       <table>
         <tr>
-          <th>Status prawny</th>
-          <th>Status dewizowy</th>
-          <th>Status FACTA</th> 
-          <th>Numer TIN</th>
           <th>Nazwa banku</th>
           <th>Numer konta</th>
           <th>Kwota</th>
-          <th>Opłata dystrybucyjna</th>
+          <th>Opłata dystrybucyjna(%)</th>
         </tr>
         <tr>
-          <td>{{form_data.legal_status}}</td>
-          <td>{{form_data.currency_status}}</td>
-          <td>{{form_data.facta_status}}</td>
-          <td>{{form_data.tin_number}}</td>
           <td>{{form_data.bank_name}}</td>
           <td>{{form_data.account_number}}</td>
           <td>{{form_data.amount}}</td>
           <td>{{form_data.charge}}</td>
         </tr>
       </table>
-      
-        <table>
+      <table>
+        <tr>
+          <th colspan="7">Dane przedstawiciela firmy</th>
+        </tr>
+        <tr>
+          <th>Imię i nazwisko</th>
+          <th>Numer telefonu</th>
+          <th>E-mail</th>
+          <th>PESEL</th>
+          <th>Numer dowodu osobistego</th>
+          <th>Narodowość</th>
+          <th>Numer paszportu</th>
+
+        </tr>
+        <tr>
+          <td>{{form_data.representative_name}}</td>
+          <td>{{form_data.representative_phone}}</td>
+          <td>{{form_data.representative_mail}}</td>
+          <td>{{form_data.representative_pesel}}</td>
+          <td>{{form_data.representative_id_number}}</td>
+          <td>{{form_data.representative_nationality}}</td>
+          <td>{{form_data.representative_passport}}</td>
+        </tr>
+      </table>
+
+      <table>
         <tr>
           <th colspan="7">Dane Doradcy:</th>
         </tr>
@@ -125,22 +175,11 @@
           <td>{{form_data.counselor_city}}</td>
         </tr>
       </table>  
-        
+
       <br>
       <br>
       <pre>{{ dump(files_data) }}</pre>
-      <div class="grid">
-        <div class="col-12">
-          <div class="navigation">
-            <div class="navigation--right">
-              <a class="btn-fill btn-fill--back" href="{{ path('individual-terms') }}">Wstecz</a>
-            </div>
-            <div class="navigation--left">
-              <a class="btn-fill btn-fill--next" href="/">Dalej</a>
-            </div>
-          </div> 
-        </div>
-      </div>
+      #}
     </div>
     <footer class="footer">
       <p class="footer__terms">© 2017 Murapol HRE FIZ AN</p> 

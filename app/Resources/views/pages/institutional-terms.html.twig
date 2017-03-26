@@ -16,7 +16,7 @@
     <div class="form-page">
       <div class="form-page__banner form-page__banner--dark">
         <h1 class="form-page__banner__title"> 
-          Dane Klienta Indywidualnego<br><span>(osoba fizyczna)</span>
+          Dane Klienta Instytucjonalnego<br><span>(osoba prawna)</span>
         </h1>
       </div>
       {% for flashMessage in app.session.flashbag.get('success') %}
@@ -32,31 +32,35 @@
       </ol>
       
       {{ form_start(form_institutional_files, {'attr': {'novalidate': 'novalidate','id': 'form-institutional-files'}}) }}
-          {{ form_label(form_institutional_files.pdf_file_murapol) }}
+      <div class="upload-wrapper">
+        <div class="upload-box">    
+      {{ form_label(form_institutional_files.pdf_file_murapol) }}
           {{ form_errors(form_institutional_files.pdf_file_murapol) }}
           {{ form_widget(form_institutional_files.pdf_file_murapol) }}
-          
+          </div>
+        <div class="upload-box">
           {{ form_label(form_institutional_files.pdf_file_saturn) }}
           {{ form_errors(form_institutional_files.pdf_file_saturn) }}
           {{ form_widget(form_institutional_files.pdf_file_saturn) }}
-          
- 
-
-          {{ form_widget(form_institutional_files.save) }}
-        {{ form_end(form_institutional_files) }}
-      {#<pre>{{ dump(form_data) }}</pre>  #}
-      <div class="grid">
+          </div>
+      </div>
+          <div class="grid">
         <div class="col-12">
           <div class="navigation">
             <div class="navigation--right">
               <a class="btn-fill btn-fill--back" href="{{ path('institutional') }}">Wstecz</a>
             </div>
             <div class="navigation--left">
-              <a class="btn-fill btn-fill--next" href="/">Dalej</a>
+             {{ form_widget(form_institutional_files.save) }}
             </div>
           </div> 
         </div>
       </div>
+
+          
+        {{ form_end(form_institutional_files) }}
+      {#<pre>{{ dump(form_data) }}</pre>  #}
+      
     </div>
     <footer class="footer">
       <p class="footer__terms">© 2017 Murapol HRE FIZ AN</p> 

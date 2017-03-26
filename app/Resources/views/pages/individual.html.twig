@@ -145,7 +145,10 @@
           <div class="grid">
             {% for input in form_individual.legal_status %}
               <div class="col-4_sm-12"> 
-                {{ form_row(input) }}
+                <div class="radio-wrapper">
+                {{ form_widget(input) }}
+                {{ form_label(input, label|default(null), { 'label_attr': {'class': 'control-label'} }) }}
+                </div>
               </div>
             {% endfor %}
           </div>
@@ -156,7 +159,10 @@
           <div class="grid">
             {% for input in form_individual.currency_status %}
               <div class="col-4_sm-12"> 
-                {{ form_row(input) }}
+                 <div class="radio-wrapper">
+                {{ form_widget(input) }}
+                {{ form_label(input) }}
+                </div>
               </div>
             {% endfor %}
           </div>
@@ -167,7 +173,10 @@
           <div class="grid">
             {% for input in form_individual.facta_status %}
               <div class="col-4_sm-12"> 
-                {{ form_row(input) }}
+                 <div class="radio-wrapper">
+                {{ form_widget(input) }}
+                {{ form_label(input) }} 
+                </div>
               </div>
             {% endfor %}
           </div>

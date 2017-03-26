@@ -2,7 +2,7 @@ $(document).ready(function () {
   jQuery.extend(jQuery.validator.messages, {
     required: "To pole jest wymagane.",
     remote: "Please fix this field.",
-    email: "Proszę wprowadzić właściwy format adresu e-mail.", 
+    email: "Proszę wprowadzić właściwy format adresu e-mail.",
     url: "Please enter a valid URL.",
     date: "Please enter a valid date.",
     dateISO: "Please enter a valid date (ISO).",
@@ -34,9 +34,19 @@ $(document).ready(function () {
     }
   });
   
-  
+  $("#form-institutional-files").validate({
+    rules: {
+      "termsfile[pdf_file_saturn]": {
+        required: true
+      },
+      "termsfile[pdf_file_murapol]": {
+        required: true
+      }
+    },
+  });
+
   //WALIDACJA INDYWIDUALNY
-  
+
   $("#form-individual").validate({
     rules: {
       "form[name]": {
@@ -50,53 +60,73 @@ $(document).ready(function () {
     },
     messages: {
       "form[name]": {
-      } 
+      }
     }
   });
   
-  //LOGIKA FORMULARZA
+  $("#form-individual-files").validate({
+    rules: {
+      "termsfile[pdf_file_saturn]": {
+        required: true
+      },
+      "termsfile[pdf_file_murapol]": {
+        required: true
+      }
+    },
+  });
   
+  
+
+  //LOGIKA FORMULARZA
+
   $('#tin-number').hide();
   $("#currency_country").hide();
   $("#foregin-company").hide();
   $("#legal-status").hide();
   $('.coresponding-address').hide();
- 
-  
-   $('#form_company_country_check_0, #form_company_country_check_1').on('click', function () {
+
+
+  $('#form_company_country_check_0, #form_company_country_check_1').on('click', function () {
     if ($('#form_company_country_check_1').prop('checked')) {
       $('#foregin-company').slideDown('slow');
     } else {
-      $('#foregin-company').slideUp('slow');  
-    }  
+      $('#foregin-company').slideUp('slow');
+    }
   });
-  
+
   $('#form_other_cor').on('click', function () {
     if ($('#form_other_cor').prop('checked')) {
       $('.coresponding-address').slideDown('slow');
     } else {
       $('.coresponding-address').slideUp('slow');
-    } 
+    }
   });
-  
+
   $('#form_currency_status_1, #form_currency_status_0').on('click', function () {
     if ($('#form_currency_status_1').prop('checked')) {
       $('#tin-number').slideDown('slow');
       $("#currency_country").slideDown('slow');
     } else {
-      $('#tin-number').slideUp('slow'); 
+      $('#tin-number').slideUp('slow');
       $("#currency_country").slideUp('slow');
-    } 
+    }
   });
-  
-  $('#legal_status_radio').on('click', function () { 
+
+  $('#legal_status_radio').on('click', function () {
     if ($('#form_legal_status_17').prop('checked')) {
       $('#legal-status').slideDown('slow');
     } else {
-      $('#legal-status').slideUp('slow'); 
-    } 
+      $('#legal-status').slideUp('slow');
+    }
   });
-
+  $('#termsfile_pdf_file_saturn').on('change', function () {
+    var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
+    $("label[for='termsfile_pdf_file_saturn'").text(filename);
+  });
+  $('#termsfile_pdf_file_murapol').on('change', function () {
+    var filename = $(this).val().replace(/C:\\fakepath\\/i, '');
+    $("label[for='termsfile_pdf_file_murapol'").text(filename);
+  });
 
 });
 

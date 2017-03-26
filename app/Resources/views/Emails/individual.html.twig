@@ -1,0 +1,121 @@
+<html>
+   <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <style type="text/css"> table{width: 100%; margin: 20px 0;} td, th{border: 1px solid black; padding: 10px} th{font-weight: bold; text-align: left}</style>
+    </head>
+  <body>
+
+<table>
+  <tr>
+    <th colspan="6">Dane klienta:</th>
+  </tr>
+  <tr>
+    <th>Imię i nazwisko</th>
+    <th>Numer telefonu</th>
+    <th>E-mail</th>
+    <th>Ulica</th>
+    <th>Kod pocztowy</th>
+    <th>Miejscowość</th>
+  </tr>
+  <tr>
+    <td>{{form_data.name}}</td>
+    <td>{{form_data.phone}}</td>
+    <td>{{form_data.mail}}</td>
+    <td>{{form_data.street}} {{form_data.street_number}}{% if form_data.flat_number != null %}/{{form_data.flat_number}}{% endif %}</td>
+    <td>{{form_data.post_code}}</td>
+    <td>{{form_data.city}}</td>
+  </tr>
+</table>
+{% if form_data.other_cor == true%}
+  <table>
+    <tr>
+      <th colspan="6">Adres korespondencyjny:</th>
+    </tr>
+    <tr>
+      <th>Ulica</th>
+      <th>Kod pocztowy</th>
+      <th>Miejscowość</th>
+    </tr>
+    <tr>
+      <td>{{form_data.cor_street}} {{form_data.cor_street_number}}{% if form_data.cor_flat_number != null %}/{{form_data.cor_flat_number}}{% endif %}</td>
+      <td>{{form_data.cor_post_code}}</td>
+      <td>{{form_data.cor_city}}</td>
+    </tr>
+  </table>
+{% endif %}
+<table>
+  <tr>
+    <th>Numer dowodu osobistego</th>
+    <th>Ważność dowodu osobistego</th>
+    <th>Narodowość</th>
+    <th>PESEL</th>
+    <th>Data urodzenia</th>
+    <th>Kraj urodzenia</th>
+
+  </tr>
+  <tr>
+    <td>{{form_data.id_number}}</td>
+    <td>{{form_data.id_expiration}}</td>
+    <td>{{form_data.nationality}}</td>
+    <td>{{form_data.pesel}}</td>
+    <td>{{form_data.birth_date}}</td>
+    <td>{{form_data.birth_country}}</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th>Status prawny</th>
+    <th>Status dewizowy</th>
+      {% if form_data.currency_status == "nierezydent" %}
+      <td>Kraj rezydencji podatkowej</td>
+      <th>Numer TIN</th>
+      {% endif %}
+    <th>Status FACTA</th> 
+    <th>Nazwa banku</th>
+    <th>Numer konta</th>
+    <th>Kwota</th>
+    <th>Opłata dystrybucyjna</th>
+  </tr>
+  <tr>
+    <td>{{form_data.legal_status}}</td>
+    <td>{{form_data.currency_status}}</td>
+    {% if form_data.currency_status == "nierezydent" %}
+      <td>{{form_data.currency_country}}</td>
+      <td>{{form_data.tin_number}}</td>
+    {% endif %}
+    <td>{{form_data.facta_status}}</td>
+    <td>{{form_data.bank_name}}</td>
+    <td>{{form_data.account_number}}</td>
+    <td>{{form_data.amount}}</td>
+    <td>{{form_data.charge}}</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th colspan="7">Dane Doradcy:</th>
+  </tr>
+  <tr>
+    <th>Imię i nazwisko</th>
+    <th>Numer telefonu</th>
+    <th>E-mail</th>
+    <th>Nazwa firmy</th>
+    <th>Ulica</th>
+    <th>Kod pocztowy</th>
+    <th>Miejscowość</th>
+  </tr>
+  <tr>
+    <td>{{form_data.counselor_name}}</td>
+    <td>{{form_data.counselor_phone}}</td>
+    <td>{{form_data.counselor_email}}</td>
+    <td>{{form_data.counselor_company}}</td>
+    <td>{{form_data.counselor_street}} {{form_data.counselor_street_number}}{% if form_data.counselor_flat_number != null %}/{{form_data.counselor_flat_number}}{% endif %}</td>
+    <td>{{form_data.counselor_post_code}}</td>
+    <td>{{form_data.counselor_city}}</td>
+  </tr>
+</table>  
+  <p>Zgoda Murapol: <a> {{files_data.fileMurapol}}</a></p>
+  <p>Zgoda Saturn: <a>{{files_data.fileSaturn}}</a></p>
+  </body>
+</html>

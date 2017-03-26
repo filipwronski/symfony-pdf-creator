@@ -1,0 +1,142 @@
+<style> table{width: 100%; margin: 20px 0;} td, th{border: 1px solid black; padding: 10px} th{font-weight: bold; text-align: left}</style>
+<table>
+  <tr>
+    <th colspan="6">Dane firmy:</th>
+  </tr>
+  <tr>
+    <th>Nazwa firmy</th>
+    <th>Numer telefonu</th>
+    <th>E-mail</th>
+    <th>Ulica</th>
+    <th>Kod pocztowy</th>
+    <th>Miejscowość</th>
+  </tr>
+  <tr>
+    <td>{{form_data.company_name}}</td>
+    <td>{{form_data.phone}}</td>
+    <td>{{form_data.mail}}</td>
+    <td>{{form_data.street}} {{form_data.street_number}}{% if form_data.flat_number != null %}/{{form_data.flat_number}}{% endif %}</td>
+    <td>{{form_data.post_code}}</td>
+    <td>{{form_data.city}}</td>
+  </tr>
+</table>
+{% if form_data.other_cor == true%}
+  <table>
+    <tr>
+      <th colspan="6">Adres korespondencyjny:</th>
+    </tr>
+    <tr>
+      <th>Ulica</th>
+      <th>Kod pocztowy</th>
+      <th>Miejscowość</th>
+    </tr>
+    <tr>
+      <td>{{form_data.cor_street}} {{form_data.cor_street_number}}{% if form_data.cor_flat_number != null %}/{{form_data.cor_flat_number}}{% endif %}</td>
+      <td>{{form_data.cor_post_code}}</td>
+      <td>{{form_data.cor_city}}</td>
+    </tr>
+  </table>
+{% endif %}
+<table>
+  <tr>
+    <th colspan="6">Dane szczegółowe:</th>
+  </tr>
+  <tr>
+    <th>NIP</th>
+    <th>KRS</th>
+    <th>Kraj założenia</th>
+      {% if form_data.company_country_check == "Inny" %}
+      <th>Numer i nazwa rejestru</th>
+      {% endif %}
+    <th>Status prawny</th>
+    <th>Status ewidencji podatkowej</th>
+      {% if form_data.currency_status == "nierezydent" %}
+      <th>Kraj rezydencji podatkowej</th>
+      {% endif %}
+  </tr>
+  <tr>
+    <td>{{form_data.nip}}</td>
+    <td>{{form_data.krs}}</td>
+    {% if form_data.company_country_check == "Polska"%}
+      <td>Polska</td>
+    {% else %}
+      <td>{{form_data.company_country}}</td>
+      <td>{{form_data.company_number}}</td>
+    {% endif %}  
+    {% if form_data.legal_status == "inne" %}
+      <td>{{form_data.legal_status_name}}</td>
+    {% else %}
+      <td>{{form_data.legal_status}}</td>
+    {% endif %}
+    {% if form_data.currency_status != "nierezydent" %}
+      <td>{{form_data.currency_status}}</td>
+    {% else %}
+      <td>{{form_data.currency_status}}</td>
+      <td>{{form_data.currency_country}}</td>
+    {% endif %}
+  </tr>
+</table>
+<table>
+  <tr>
+    <th>Nazwa banku</th>
+    <th>Numer konta</th>
+    <th>Kwota</th>
+    <th>Opłata dystrybucyjna(%)</th>
+  </tr>
+  <tr>
+    <td>{{form_data.bank_name}}</td>
+    <td>{{form_data.account_number}}</td>
+    <td>{{form_data.amount}}</td>
+    <td>{{form_data.charge}}</td>
+  </tr>
+</table>
+<table>
+  <tr>
+    <th colspan="7">Dane przedstawiciela firmy</th>
+  </tr>
+  <tr>
+    <th>Imię i nazwisko</th>
+    <th>Numer telefonu</th>
+    <th>E-mail</th>
+    <th>PESEL</th>
+    <th>Numer dowodu osobistego</th>
+    <th>Narodowość</th>
+    <th>Numer paszportu</th>
+
+  </tr>
+  <tr>
+    <td>{{form_data.representative_name}}</td>
+    <td>{{form_data.representative_phone}}</td>
+    <td>{{form_data.representative_mail}}</td>
+    <td>{{form_data.representative_pesel}}</td>
+    <td>{{form_data.representative_id_number}}</td>
+    <td>{{form_data.representative_nationality}}</td>
+    <td>{{form_data.representative_passport}}</td>
+  </tr>
+</table>
+
+<table>
+  <tr>
+    <th colspan="7">Dane Doradcy:</th>
+  </tr>
+  <tr>
+    <th>Imię i nazwisko</th>
+    <th>Numer telefonu</th>
+    <th>E-mail</th>
+    <th>Nazwa firmy</th>
+    <th>Ulica</th>
+    <th>Kod pocztowy</th>
+    <th>Miejscowość</th>
+  </tr>
+  <tr>
+    <td>{{form_data.counselor_name}}</td>
+    <td>{{form_data.counselor_phone}}</td>
+    <td>{{form_data.counselor_email}}</td>
+    <td>{{form_data.counselor_company}}</td>
+    <td>{{form_data.counselor_street}} {{form_data.counselor_street_number}}{% if form_data.counselor_flat_number != null %}/{{form_data.counselor_flat_number}}{% endif %}</td>
+    <td>{{form_data.counselor_post_code}}</td>
+    <td>{{form_data.counselor_city}}</td>
+  </tr>
+</table>  
+  <p>Zgoda Murapol: <a> {{files_data.fileMurapol}}</a></p>
+  <p>Zgoda Saturn: <a>{{files_data.fileSaturn}}</a></p>

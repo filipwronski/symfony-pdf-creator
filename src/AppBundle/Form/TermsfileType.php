@@ -13,9 +13,9 @@ class TermsfileType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('pdf_file_murapol', FileType::class)
-            ->add('pdf_file_saturn', FileType::class)
-            ->add('save', SubmitType::class, array('label' => 'Dodaj', "attr" => ['class' => 'btn-fill btn-fill--next']))
+            ->add('pdf_file_murapol', FileType::class, array('label' => 'Dodaj załącznik Murapol HRE'))
+            ->add('pdf_file_saturn', FileType::class, array('label' => 'Dodaj załącznik Saturn TFI S'))
+            ->add('save', SubmitType::class, array('label' => 'Dalej', "attr" => ['class' => 'btn-fill btn-fill--next']))
         ;
     }
 
